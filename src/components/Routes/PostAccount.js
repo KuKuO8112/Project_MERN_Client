@@ -89,12 +89,12 @@ export default function PostAccount({ currentUser, setCurrentUser }) {
       )}
       {currentUser && (
         <div
+          className="w-100 m-auto p-2"
           style={{
-            width: "60%",
-            margin: "auto",
+            maxWidth: "50rem",
           }}
         >
-          <div className="card m-3 w-100">
+          <div className="card w-100">
             <div>
               {message && <div className="alert alert-danger">{message}</div>}
               <label htmlFor="IncomeOrPay">
@@ -173,7 +173,7 @@ export default function PostAccount({ currentUser, setCurrentUser }) {
             </button>
           </div>
           <AlertPop
-            ifNavigate={true}
+            ifNavigate={"/account"}
             alertText={"資料新增成功"}
             alertPopUp={alertPopUp}
             setAlertPopUp={setAlertPopUp}

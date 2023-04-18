@@ -129,11 +129,12 @@ export default function Account({ currentUser, setCurrentUser }) {
             display: "flex",
             justifyContent: "center",
             flexWrap: "wrap",
-            width: "65%",
+            width: "100%",
+            maxWidth: "80rem",
             margin: "auto",
           }}
         >
-          <div style={{ width: "100%" }}>
+          <div className="w-100 m-2">
             <div className="input-group">
               <button
                 className="btn btn-outline-secondary fs-5"
@@ -303,7 +304,7 @@ export default function Account({ currentUser, setCurrentUser }) {
         deleteData={deleteData}
       ></DeleteAlert>
       <AlertPop
-        ifNavigate={false}
+        ifNavigate={"/account"}
         alertText={"資料修改成功"}
         alertPopUp={alertPopUp}
         setAlertPopUp={setAlertPopUp}

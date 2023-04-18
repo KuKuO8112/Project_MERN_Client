@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
+import AlertPop from "../PopUp/AlertPop";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export default function Register() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [message, setMessage] = useState("");
+  let [alertPopUp, setAlertPopUp] = useState(false);
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -24,8 +26,7 @@ export default function Register() {
   const handleRegister = () => {
     AuthService.register(username, email, password)
       .then(() => {
-        window.alert("註冊成功，將被導向至登入頁面");
-        navigate("/login");
+        setAlertPopUp(true);
       })
       .catch((e) => {
         setMessage(e.response.data);
@@ -84,6 +85,12 @@ export default function Register() {
           註冊會員
         </button>
       </div>
+      <AlertPop
+        ifNavigate={"/login"}
+        alertText={"註冊成功，將被導向至登入頁面"}
+        alertPopUp={alertPopUp}
+        setAlertPopUp={setAlertPopUp}
+      ></AlertPop>
     </div>
   );
 }

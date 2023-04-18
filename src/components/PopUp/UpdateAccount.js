@@ -90,7 +90,7 @@ export default function UpdateAccount({
     >
       <div
         className="position-absolute top-50 start-50 translate-middle"
-        style={{ width: "40vw", minWidth: "15rem" }}
+        style={{ width: "40vw", minWidth: "22rem" }}
       >
         <div className="card">
           <div>
