@@ -75,11 +75,11 @@ export default function Account({ currentUser, setCurrentUser }) {
   const deleteHandler = async (id) => {
     try {
       let message = await AccountService.delete(id);
-      setDeletePopUp(false);
       let _id = currentUser.user._id;
       AccountService.get(_id)
         .then((data) => {
           setAccountData(data.data);
+          setDeletePopUp(false);
         })
         .catch((e) => {
           console.log(e);
