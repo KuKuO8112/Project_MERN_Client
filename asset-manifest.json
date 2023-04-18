@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/Project_MERN_Client/static/js/main.920b9e1a.js",
+    "main.js": "/Project_MERN_Client/static/js/main.ea26ddd9.js",
     "index.html": "/Project_MERN_Client/index.html",
-    "main.920b9e1a.js.map": "/Project_MERN_Client/static/js/main.920b9e1a.js.map"
+    "main.ea26ddd9.js.map": "/Project_MERN_Client/static/js/main.ea26ddd9.js.map"
   },
   "entrypoints": [
-    "static/js/main.920b9e1a.js"
+    "static/js/main.ea26ddd9.js"
   ]
 }
