@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Layout from "./components/Layout";
 import Home from "./components/Routes/Home";
@@ -8,13 +8,12 @@ import Profile from "./components/Routes/Profile";
 import PostAccount from "./components/Routes/PostAccount";
 import Account from "./components/Routes/Account";
 import AuthService from "./services/auth.service";
-import env from "react-dotenv";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route
           path="/"
@@ -62,7 +61,7 @@ function App() {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
