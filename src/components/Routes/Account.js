@@ -37,7 +37,7 @@ export default function Account({ currentUser, setCurrentUser }) {
           console.log(e);
         });
     }
-  }, []);
+  }, [alertPopUp]);
 
   const handleReset = () => {
     setFilterIncomeOrPay("");

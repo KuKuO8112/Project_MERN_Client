@@ -10,6 +10,7 @@ export default function AlertPop({
   const navigate = useNavigate();
   const checkHandler = () => {
     if (ifNavigate) {
+      setAlertPopUp(false);
       navigate(ifNavigate);
     } else {
       setAlertPopUp(false);
