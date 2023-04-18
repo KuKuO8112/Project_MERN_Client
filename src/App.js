@@ -8,6 +8,7 @@ import Profile from "./components/Routes/Profile";
 import PostAccount from "./components/Routes/PostAccount";
 import Account from "./components/Routes/Account";
 import AuthService from "./services/auth.service";
+import env from "react-dotenv";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
