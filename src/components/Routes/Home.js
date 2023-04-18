@@ -54,9 +54,9 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 mt-3">
             <div className="h-100 p-5 bg-light border rounded-3">
-              <h2>如果您是第一次來到這，註冊一個帳戶並開始使用。</h2>
+              <h2>如果您是第一次來到此網站，註冊一個帳戶並開始使用。</h2>
               <Link
                 style={{ marginTop: "2rem" }}
                 className="btn btn-outline-secondary"

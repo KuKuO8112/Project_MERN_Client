@@ -35,13 +35,13 @@ export default function Register() {
   return (
     <div
       style={{
-        width: "60%",
+        width: "100%",
         margin: "auto",
         display: "flex",
         justifyContent: "center",
       }}
     >
-      <div className="card text-center m-3 w-50">
+      <div className="card text-center m-3 w-100" style={{ maxWidth: "50rem" }}>
         {message && <div className="alert alert-danger">{message}</div>}
         <div className="card-header">註冊會員</div>
         <div>
