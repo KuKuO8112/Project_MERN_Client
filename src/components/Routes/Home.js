@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import AuthService from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    AuthService.getTestAPI();
+    if (localStorage.getItem("user")) navigate("/profile");
+  }, []);
+
   return (
     <main>
       <div className="container py-4">
