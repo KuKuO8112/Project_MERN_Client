@@ -5,6 +5,7 @@ import UpdateAccount from "../PopUp/UpdateAccount";
 import DeleteAlert from "../PopUp/DeleteAlert";
 import AlertPop from "../PopUp/AlertPop";
 import Filter from "../Filter/Filter";
+import Loading from "../PopUp/Loading";
 
 export default function Account({ currentUser, setCurrentUser }) {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Account({ currentUser, setCurrentUser }) {
   const [maxCostRange, setMaxCostRange] = useState(100000);
   const [minDate, setMinDate] = useState("");
   const [maxDate, setMaxDate] = useState("");
+  const [loadingPopUp, setLoadingPopUp] = useState(false);
 
   const handleTakeToLogin = () => {
     navigate("/login");
@@ -70,6 +72,7 @@ export default function Account({ currentUser, setCurrentUser }) {
   };
 
   const deleteHandler = async (id) => {
+    setLoadingPopUp(true);
     try {
       let message = await AccountService.delete(id);
       let _id = currentUser.user._id;
@@ -77,6 +80,7 @@ export default function Account({ currentUser, setCurrentUser }) {
         .then((data) => {
           setAccountData(data.data);
           setDeletePopUp(false);
+          setLoadingPopUp(false);
         })
         .catch((e) => {
           console.log(e);
@@ -304,6 +308,7 @@ export default function Account({ currentUser, setCurrentUser }) {
         alertPopUp={alertPopUp}
         setAlertPopUp={setAlertPopUp}
       />
+      <Loading loadingPopUp={loadingPopUp} />
     </>
   );
 }
