@@ -57,8 +57,15 @@ export default function Nav({ currentUser, setCurrentUser }) {
             )}
             {currentUser && (
               <li className="nav-item">
+                <Link className="nav-link fs-2" to="/calendar">
+                  月曆
+                </Link>
+              </li>
+            )}
+            {currentUser && (
+              <li className="nav-item">
                 <Link className="nav-link fs-2" to="/account">
-                  記帳頁面
+                  資料列表
                 </Link>
               </li>
             )}

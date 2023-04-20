@@ -5,11 +5,11 @@ import AlertPop from "../PopUp/AlertPop";
 
 export default function Register() {
   const navigate = useNavigate();
-  let [username, setUsername] = useState("");
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-  let [message, setMessage] = useState("");
-  let [alertPopUp, setAlertPopUp] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [alertPopUp, setAlertPopUp] = useState(false);
 
   const handleUsername = (e) => {
     setUsername(e.target.value);

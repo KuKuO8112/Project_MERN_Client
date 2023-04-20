@@ -4,16 +4,18 @@ import AccountService from "../../services/account.service";
 import InTitle from "../TitleInput/InTitle";
 import OutTitle from "../TitleInput/OutTitle";
 import AlertPop from "../PopUp/AlertPop";
+import Loading from "../PopUp/Loading";
 
 export default function PostAccount({ currentUser, setCurrentUser }) {
-  let [IncomeOrPay, setIncomeOrPay] = useState(true);
-  let [title, setTitle] = useState("");
-  let [description, setDescription] = useState("");
-  let [cost, setCost] = useState(0);
-  let [date, setDate] = useState(null);
-  let [time, setTime] = useState("");
-  let [message, setMessage] = useState("");
-  let [alertPopUp, setAlertPopUp] = useState(false);
+  const [IncomeOrPay, setIncomeOrPay] = useState(true);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [cost, setCost] = useState(0);
+  const [date, setDate] = useState(null);
+  const [time, setTime] = useState("");
+  const [message, setMessage] = useState("");
+  const [alertPopUp, setAlertPopUp] = useState(false);
+  const [loadingPopUp, setLoadingPopUp] = useState(false);
   const navigate = useNavigate();
 
   const handleTakeToLogin = () => {
@@ -44,8 +46,10 @@ export default function PostAccount({ currentUser, setCurrentUser }) {
   };
 
   const postAccount = () => {
+    setLoadingPopUp(true);
     AccountService.post(title, IncomeOrPay, description, cost, date, time)
       .then(() => {
+        setLoadingPopUp(false);
         setAlertPopUp(true);
       })
       .catch((error) => {
@@ -177,7 +181,8 @@ export default function PostAccount({ currentUser, setCurrentUser }) {
             alertText={"資料新增成功"}
             alertPopUp={alertPopUp}
             setAlertPopUp={setAlertPopUp}
-          ></AlertPop>
+          />
+          <Loading loadingPopUp={loadingPopUp} />
         </div>
       )}
     </>

@@ -8,6 +8,7 @@ import Profile from "./components/Routes/Profile";
 import PostAccount from "./components/Routes/PostAccount";
 import Account from "./components/Routes/Account";
 import AuthService from "./services/auth.service";
+import Calendar from "./components/Routes/Calendar";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -54,6 +55,15 @@ function App() {
             path="postAccount"
             element={
               <PostAccount
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+          <Route
+            path="calendar"
+            element={
+              <Calendar
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />

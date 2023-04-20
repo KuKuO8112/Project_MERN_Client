@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   useEffect(() => {
-    AuthService.getTestAPI();
+    AuthService.getTestAPI(); //順便喚醒render伺服器
     if (localStorage.getItem("user")) navigate("/profile");
   }, []);
 
@@ -56,7 +56,9 @@ export default function Home() {
           </div>
           <div className="col-md-6 mt-3">
             <div className="h-100 p-5 bg-light border rounded-3">
-              <h2>如果您是第一次來到此網站，註冊一個帳戶並開始使用。</h2>
+              <h2>
+                如果您是第一次來到此網站，註冊一個帳戶並開始使用。(信箱密碼隨意輸入，格式正確即可)
+              </h2>
               <Link
                 style={{ marginTop: "2rem" }}
                 className="btn btn-outline-secondary"

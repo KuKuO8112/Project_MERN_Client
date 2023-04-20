@@ -2,23 +2,24 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AccountService from "../../services/account.service";
 import UpdateAccount from "../PopUp/UpdateAccount";
-import InTitle from "../TitleInput/InTitle";
-import OutTitle from "../TitleInput/OutTitle";
 import DeleteAlert from "../PopUp/DeleteAlert";
 import AlertPop from "../PopUp/AlertPop";
+import Filter from "../Filter/Filter";
 
 export default function Account({ currentUser, setCurrentUser }) {
   const navigate = useNavigate();
   const [accountData, setAccountData] = useState(null);
-  let [popUp, setPopUp] = useState(false);
-  let [alertPopUp, setAlertPopUp] = useState(false);
-  let [updateData, setUpdateData] = useState("");
-  let [deleteData, setDeleteData] = useState("");
-  let [filterIncomeOrPay, setFilterIncomeOrPay] = useState("");
-  let [filterTitle, setFilterTitle] = useState("");
-  let [deletePopUp, setDeletePopUp] = useState(false);
-  let [minCostRange, setMinCostRange] = useState(0);
-  let [maxCostRange, setMaxCostRange] = useState(100000);
+  const [popUp, setPopUp] = useState(false);
+  const [alertPopUp, setAlertPopUp] = useState(false);
+  const [updateData, setUpdateData] = useState("");
+  const [deleteData, setDeleteData] = useState("");
+  const [filterIncomeOrPay, setFilterIncomeOrPay] = useState("");
+  const [filterTitle, setFilterTitle] = useState("");
+  const [deletePopUp, setDeletePopUp] = useState(false);
+  const [minCostRange, setMinCostRange] = useState(0);
+  const [maxCostRange, setMaxCostRange] = useState(100000);
+  const [minDate, setMinDate] = useState("");
+  const [maxDate, setMaxDate] = useState("");
 
   const handleTakeToLogin = () => {
     navigate("/login");
@@ -44,6 +45,8 @@ export default function Account({ currentUser, setCurrentUser }) {
     setFilterTitle("");
     setMinCostRange(0);
     setMaxCostRange(100000);
+    setMinDate("");
+    setMaxDate("");
   };
   const handleIn = () => {
     setFilterIncomeOrPay(true);
@@ -55,12 +58,6 @@ export default function Account({ currentUser, setCurrentUser }) {
   };
   const handleTitleFilter = (e) => {
     setFilterTitle(e.target.value);
-  };
-  const minCostRangeHandler = (e) => {
-    setMinCostRange(e.target.value);
-  };
-  const maxCostRangeHandler = (e) => {
-    setMaxCostRange(e.target.value);
   };
 
   const updateHandler = (account) => {
@@ -123,6 +120,26 @@ export default function Account({ currentUser, setCurrentUser }) {
           </div>
         </div>
       )}
+      {!accountData && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            width: "60%",
+            margin: "auto",
+          }}
+        >
+          <div
+            className="mt-5"
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <p className="m-4 text-secondary" style={{ fontSize: "2rem" }}>
+              資料讀取中(或render伺服器喚醒中)
+            </p>
+          </div>
+        </div>
+      )}
       {currentUser && accountData && (
         <div
           style={{
@@ -134,63 +151,28 @@ export default function Account({ currentUser, setCurrentUser }) {
             margin: "auto",
           }}
         >
-          <div className="w-100 m-2">
-            <div className="input-group">
-              <button
-                className="btn btn-outline-secondary fs-5"
-                style={{ margin: "0.5rem" }}
-                name="IncomeOrPay"
-                onClick={handleIn}
-              >
-                收入
-              </button>
-              <button
-                className="btn btn-outline-secondary fs-5"
-                style={{ margin: "0.5rem" }}
-                name="IncomeOrPay"
-                onClick={handleOut}
-              >
-                支出
-              </button>
-              {filterIncomeOrPay === true ? (
-                <InTitle handleTitle={handleTitleFilter} title={filterTitle} />
-              ) : filterIncomeOrPay === false ? (
-                <OutTitle handleTitle={handleTitleFilter} title={filterTitle} />
-              ) : (
-                ""
-              )}
-            </div>
-            <label className="input-group" htmlFor="costRange">
-              <span className="input-group-text fs-5">金額範圍:</span>
-              <input
-                className="form-control"
-                type="number"
-                name="costRange"
-                value={minCostRange}
-                onChange={minCostRangeHandler}
-              />
-              <span className="input-group-text fs-5">~</span>
-              <input
-                className="form-control"
-                type="number"
-                name="costRange"
-                value={maxCostRange}
-                onChange={maxCostRangeHandler}
-              />
-            </label>
-            <button
-              className="btn btn-secondary fs-5"
-              style={{ margin: "0.5rem" }}
-              onClick={handleReset}
-            >
-              重製篩選
-            </button>
-          </div>
+          <Filter
+            handleIn={handleIn}
+            handleOut={handleOut}
+            filterIncomeOrPay={filterIncomeOrPay}
+            handleTitleFilter={handleTitleFilter}
+            filterTitle={filterTitle}
+            minCostRange={minCostRange}
+            setMinCostRange={setMinCostRange}
+            maxCostRange={maxCostRange}
+            setMaxCostRange={setMaxCostRange}
+            minDate={minDate}
+            setMinDate={setMinDate}
+            maxDate={maxDate}
+            setMaxDate={setMaxDate}
+            handleReset={handleReset}
+          />
           <div
             style={{
               display: "flex",
               flexWrap: "wrap",
               margin: "auto",
+              marginBottom: "3rem",
               width: "100%",
               justifyContent: "center",
             }}
@@ -211,6 +193,12 @@ export default function Account({ currentUser, setCurrentUser }) {
               .filter((e) => {
                 if (e.cost >= minCostRange && e.cost <= maxCostRange) return e;
               })
+              .filter((e) => {
+                if (minDate == "" && maxDate == "") return e;
+                if (maxDate == "" && e.date >= minDate) return e;
+                if (minDate == "" && e.date <= maxDate) return e;
+                if (e.date >= minDate && e.date <= maxDate) return e;
+              })
               .map((account) => {
                 return (
                   <div
@@ -222,7 +210,14 @@ export default function Account({ currentUser, setCurrentUser }) {
                     className="card text-center mt-2 mb-2 m-1"
                     key={account._id}
                   >
-                    <div className="card-header">
+                    <div
+                      className="card-header"
+                      style={
+                        account.IncomeOrPay //控制收支顏色
+                          ? { backgroundColor: "lightgreen" }
+                          : { backgroundColor: "pink" }
+                      }
+                    >
                       {account.IncomeOrPay ? "收入" : "支出"}
                     </div>
                     <div>
@@ -302,13 +297,13 @@ export default function Account({ currentUser, setCurrentUser }) {
         deletePopUp={deletePopUp}
         setDeletePopUp={setDeletePopUp}
         deleteData={deleteData}
-      ></DeleteAlert>
+      />
       <AlertPop
         ifNavigate={"/account"}
         alertText={"資料修改成功"}
         alertPopUp={alertPopUp}
         setAlertPopUp={setAlertPopUp}
-      ></AlertPop>
+      />
     </>
   );
 }

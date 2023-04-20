@@ -2,6 +2,7 @@ import { React, useState, useLayoutEffect } from "react";
 import AccountService from "../../services/account.service";
 import InTitle from "../TitleInput/InTitle";
 import OutTitle from "../TitleInput/OutTitle";
+import Loading from "./Loading";
 
 export default function UpdateAccount({
   popUp,
@@ -9,13 +10,14 @@ export default function UpdateAccount({
   updateData,
   setAlertPopUp,
 }) {
-  let [IncomeOrPay, setIncomeOrPay] = useState(true);
-  let [title, setTitle] = useState("");
-  let [description, setDescription] = useState("");
-  let [cost, setCost] = useState(0);
-  let [date, setDate] = useState("");
-  let [time, setTime] = useState("");
-  let [message, setMessage] = useState("");
+  const [IncomeOrPay, setIncomeOrPay] = useState(true);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [cost, setCost] = useState(0);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [message, setMessage] = useState("");
+  const [loadingPopUp, setLoadingPopUp] = useState(false);
 
   useLayoutEffect(() => {
     setIncomeOrPay(updateData.IncomeOrPay);
@@ -52,6 +54,7 @@ export default function UpdateAccount({
   };
 
   const UpdateHandler = () => {
+    setLoadingPopUp(true);
     AccountService.patch(
       updateData._id,
       title,
@@ -64,6 +67,7 @@ export default function UpdateAccount({
       .then(() => {
         alertHandler();
         setPopUp(false);
+        setLoadingPopUp(false);
       })
       .catch((error) => {
         console.log(error.response);
@@ -192,6 +196,7 @@ export default function UpdateAccount({
           </button>
         </div>
       </div>
+      <Loading loadingPopUp={loadingPopUp} />
     </div>
   ) : (
     ""
