@@ -25,7 +25,7 @@ export default function Home() {
                 target="blank"
                 href="https://github.com/KuKuO8112/Project_MERN_Client"
               >
-                Github前端
+                Github client code
               </a>
             </p>
             <p>
@@ -34,7 +34,7 @@ export default function Home() {
                 target="blank"
                 href="https://github.com/KuKuO8112/Project_MERN_Server"
               >
-                Github後端
+                Github server code
               </a>
             </p>
           </div>
