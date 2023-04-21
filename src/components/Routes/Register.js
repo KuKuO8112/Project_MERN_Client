@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import AlertPop from "../PopUp/AlertPop";
+import Loading from "../PopUp/Loading";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [alertPopUp, setAlertPopUp] = useState(false);
+  const [loadingPopUp, setLoadingPopUp] = useState(false);
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -24,11 +26,14 @@ export default function Register() {
   };
 
   const handleRegister = () => {
+    setLoadingPopUp(true);
     AuthService.register(username, email, password)
       .then(() => {
         setAlertPopUp(true);
+        setLoadingPopUp(false);
       })
       .catch((e) => {
+        setLoadingPopUp(false);
         setMessage(e.response.data);
       });
   };
@@ -91,6 +96,7 @@ export default function Register() {
         alertPopUp={alertPopUp}
         setAlertPopUp={setAlertPopUp}
       ></AlertPop>
+      <Loading loadingPopUp={loadingPopUp} />
     </div>
   );
 }

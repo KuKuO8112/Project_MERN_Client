@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
+import Loading from "../PopUp/Loading";
 
 export default function Login({ currentUser, setCurrentUser }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loadingPopUp, setLoadingPopUp] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -17,11 +19,14 @@ export default function Login({ currentUser, setCurrentUser }) {
 
   const handleLogin = async () => {
     try {
+      setLoadingPopUp(true);
       let response = await AuthService.login(email, password);
       localStorage.setItem("user", JSON.stringify(response.data));
       setCurrentUser(AuthService.getCurrentUser());
+      setLoadingPopUp(false);
       navigate("/profile");
     } catch (e) {
+      setLoadingPopUp(false);
       setMessage(e.response.data);
     }
   };
@@ -69,6 +74,7 @@ export default function Login({ currentUser, setCurrentUser }) {
           登入系統
         </button>
       </div>
+      <Loading loadingPopUp={loadingPopUp} />
     </div>
   );
 }
