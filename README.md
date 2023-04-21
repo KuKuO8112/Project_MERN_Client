@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# 記帳網站 client 前端  
+此專案為使用 MERN 製作的簡易記帳網站的前端 client 部分，MERN 即為 React、node.js、Express、mongoDB，使用 React 作為 client 前端框架，並部署至 github Pages。  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 使用套件
+1. **gh-pages**：部署至 github Pages 所使用的套件。  
+  
+2. **axios**：取得 AxiosResponseObject，內部 data 可直接使用。  
+  
+3. **MaterialUI**：MUI 的各種套件，製作月曆頁面 Date Calendar，並選取日期以取得當日資料。  
+  
+4. **dayjs**：配合 MUI 的 Date Calendar，取得時間資料。  
+  
+5. **React**：基本的 react、react-dom、react-router-dom等等。  
+  
+## 基本功能介紹
+進入到首頁時會寄送測試 request 至後端，以便提早喚醒後端render伺服器。  
+  
+上方 Nav 於是否登入將顯示不同內容，能切換至不同 route。  
+  
+若前次使用時未登出，瀏覽器的 localStorage 會保有前次使用時後端 JSON Web Tokens 寄送過來的 token，不用再次登入。  
+  
+註冊時，將名稱、信箱和密碼傳送 post 給後端建立資料，並導向登入頁面。  
+  
+登入時，將信箱及密碼傳送 post 給後端驗證資料，並得到 JSON Web Tokens 製作的 token，並存入 localStorage，之後導向個人頁面。  
+  
+新增資料時，將所輸入的資料傳送 post 至後端並驗證資料類型及格式，成功時將導向記帳資料列表頁面。  
+  
+剛開啟資料列表頁面時，將 id 和 localStorage 內的 token 傳送 get 至後端以取得資料。  
+  
+資料列表頁面能夠依據收入或支出、來源及用途、金額、日期範圍去對資料做篩選，並設置刪除及修改資料的按鈕。  
+  
+修改資料時，將修改後的資料及 token 傳送 patch 至後端，一樣驗證資料類型及格式，並做修改。  
+  
+刪除資料時，將欲刪除的資料 id 及 token 傳送 delete 至後端，刪除資料後再重新取得一次資料。  
+  
+開啟月曆頁面時， 將 id 和 token 傳送 get 至後端取得資料。  
+  
+月曆上方為 MUI 製作的 Date Calendar， 選擇日期並於下方顯示該日期的資料。
+  
+登出，刪除 localStorage 內的 token。  
+  
+  [後端 server](https://github.com/KuKuO8112/Project_MERN_Server "link")
