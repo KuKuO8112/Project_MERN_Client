@@ -39,4 +39,4 @@
   
 登出，刪除 localStorage 內的 token。  
   
-  `[`後端 server`]` `(`https://github.com/KuKuO8112/Project_MERN_Server`)`
+  [後端 server](https://github.com/KuKuO8112/Project_MERN_Server "link")
