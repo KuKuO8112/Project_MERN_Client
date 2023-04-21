@@ -116,12 +116,11 @@ export default function Calendar({ currentUser, setCurrentUser }) {
               >
                 <thead>
                   <tr>
-                    <th></th>
-                    <th>用途/來源</th>
-                    <th>說明</th>
-                    <th>金額</th>
-                    <th>時間</th>
-                    <th></th>
+                    <th style={{ width: "20%" }}></th>
+                    <th style={{ width: "20%" }}>用途/來源</th>
+                    <th style={{ width: "20%" }}>說明</th>
+                    <th style={{ width: "20%" }}>金額</th>
+                    <th style={{ width: "20%" }}>時間</th>
                   </tr>
                 </thead>
                 <tbody>
