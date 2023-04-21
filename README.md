@@ -12,7 +12,7 @@
   
 5. React：基本的 react、react-dom、react-router-dom等等。  
   
-## 基本功能
+## 基本功能介紹
 進入到首頁時會寄送測試 request 至後端，以便提早喚醒後端render伺服器。  
   
 上方 Nav 於是否登入將顯示不同內容，能切換至不同 route。  
