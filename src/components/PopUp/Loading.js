@@ -18,7 +18,7 @@ export default function Loading({ loadingPopUp }) {
         style={{ width: "40vw" }}
       >
         <div class="card text-center">
-          <div class="card-body">loading</div>
+          <div class="card-body">loading(或render伺服器喚醒中)</div>
         </div>
       </div>
     </div>
